@@ -1,0 +1,7 @@
+/.idea/*
+/_assets/*
+/grunt/*
+/lib/* 
+/node_modules/* 
+package.json  
+/backup/*
