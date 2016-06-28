@@ -2,6 +2,7 @@
 /_assets/*
 /grunt/*
 /lib/* 
+/examples/*
 /node_modules/* 
 package.json  
 /backup/*
