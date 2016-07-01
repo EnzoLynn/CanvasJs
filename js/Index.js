@@ -11,7 +11,7 @@ var init = function init() {
     var container = new createjs.Container();
 
     var circle = new createjs.Shape();
-    circle.graphics.beginFill("#E11010").drawCircle(150, 150, 150);
+    circle.graphics.setStrokeStyle(11, "round", "round").beginFill("#E11010").beginStroke("DeepSkyBlue").drawCircle(250, 250, 150);
     container.addChild(circle);
 
     // var rect = new createjs.Shape();
@@ -21,8 +21,8 @@ var init = function init() {
 
     var s = new createjs.Shape();
     s.graphics.setStrokeStyle(1, "round", "round").beginFill("DeepSkyBlue").beginStroke("DeepSkyBlue").moveTo(0, 0).lineTo(0, 90).lineTo(-12, 90).lineTo(2, 110).lineTo(18, 90).lineTo(6, 90).lineTo(6, 0);
-    s.x = 150;
-    s.y = 150;
+    s.x = 250;
+    s.y = 250;
     s.regX = 3;
     container.addChild(s);
 
