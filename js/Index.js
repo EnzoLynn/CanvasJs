@@ -1,23 +1,33 @@
 "use strict";
 
 var init = function init() {
+    // var width = (document.documentElement.clientWidth||document.body.clientWidth) -20;
+    // var height = (document.documentElement.clientHeight||document.body.clientHeight) -20;
+    // document.getElementById('demoCanvas').width =width;
+    // document.getElementById('demoCanvas').height =height;
     //Create a stage by getting a reference to the canvas
     var stage = new createjs.Stage("demoCanvas");
 
+    var container = new createjs.Container();
+
     var circle = new createjs.Shape();
     circle.graphics.beginFill("#E11010").drawCircle(150, 150, 150);
-    stage.addChild(circle);
+    container.addChild(circle);
 
-    var rect = new createjs.Shape();
-    rect.graphics.beginFill("DeepSkyBlue").drawRect(0, 0, 100, 100); //.drawCircle(0, 0, 50);
-    rect.x = 150;
-    rect.y = 150;
-    stage.addChild(rect);
+    // var rect = new createjs.Shape();
+    // rect.graphics.beginFill("DeepSkyBlue").drawRect(0, 0, 100, 30); //.drawCircle(0, 0, 50);
+    // rect.x = 150;
+    // rect.y = 150;  
 
     var s = new createjs.Shape();
-    s.graphics.setStrokeStyle(16, "round", "round").beginFill("#0F0").beginStroke("#f90").moveTo(20, 10).lineTo(90, 90).lineTo(90, 140);
-    stage.addChild(s);
+    s.graphics.setStrokeStyle(1, "round", "round").beginFill("DeepSkyBlue").beginStroke("DeepSkyBlue").moveTo(0, 0).lineTo(0, 90).lineTo(-12, 90).lineTo(2, 110).lineTo(18, 90).lineTo(6, 90).lineTo(6, 0);
+    s.x = 150;
+    s.y = 150;
+    s.regX = 3;
+    container.addChild(s);
 
+    stage.addChild(container);
+    //stage.addChild(rect);
     stage.update();
 
     function handleClick(event) {
@@ -46,7 +56,7 @@ var init = function init() {
         angle += 1;
         var value = 12 * angle;
 
-        rect.rotation = value;
+        s.rotation = value;
         //circle.scaleX = circle.scaleY = value / 360;
         stage.update(event);
         // Check out the DragAndDrop example in GitHub for more
