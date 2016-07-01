@@ -9,9 +9,16 @@ var init = function init() {
 	var stage = new createjs.Stage("demoCanvas");
 
 	var container = new createjs.Container();
+	container.x = 250;
+	container.y = 250;
+	container.regX = 250;
+	container.regY = 250;
 
 	var circle = new createjs.Shape();
-	circle.graphics.beginFill("#E11010").drawCircle(250, 250, 150);
+	circle.graphics.beginFill("#E11010").drawCircle(0, 0, 150);
+	circle.x = 250;
+	circle.y = 250;
+	// circle.regX = 75;
 	container.addChild(circle);
 
 	// var rect = new createjs.Shape();
@@ -34,14 +41,15 @@ var init = function init() {
 	circleArc.graphics.setStrokeStyle(11, "round", "round").beginStroke("#0048FF").arc(250, 250, 150, 0, Math.PI * 2);
 	container.addChild(circleArc);
 
+	stage.addChild(container);
+
 	var s = new createjs.Shape();
 	s.graphics.setStrokeStyle(1, "round", "round").beginFill("DeepSkyBlue").beginStroke("DeepSkyBlue").moveTo(0, 0).lineTo(0, 90).lineTo(-12, 90).lineTo(2, 110).lineTo(18, 90).lineTo(6, 90).lineTo(6, 0);
 	s.x = 250;
 	s.y = 250;
 	s.regX = 3;
-	container.addChild(s);
+	stage.addChild(s);
 
-	stage.addChild(container);
 	//stage.addChild(rect);
 	stage.update();
 
@@ -71,7 +79,7 @@ var init = function init() {
 		angle += 1;
 		var value = 12 * angle;
 
-		s.rotation = value;
+		container.rotation = value;
 		//circle.scaleX = circle.scaleY = value / 360;
 		stage.update(event);
 		// Check out the DragAndDrop example in GitHub for more
