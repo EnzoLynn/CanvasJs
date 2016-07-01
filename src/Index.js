@@ -10,16 +10,28 @@ var init = function() {
 	 
 
     var circle = new createjs.Shape();
-    circle.graphics.setStrokeStyle(11, "round", "round").beginFill("#E11010")
-    .beginStroke("DeepSkyBlue").drawCircle(250, 250, 150);
+    circle.graphics.beginFill("#E11010").drawCircle(250, 250, 150);
     container.addChild(circle);
+
 
     // var rect = new createjs.Shape();
     // rect.graphics.beginFill("DeepSkyBlue").drawRect(0, 0, 100, 30); //.drawCircle(0, 0, 50);
     // rect.x = 150;
     // rect.y = 150;   
-   
-   
+    var sLine =  new createjs.Shape();
+    sLine.graphics.setStrokeStyle(3, "round", "round").beginFill("#00FF24").beginStroke("#00FF24")
+    .moveTo(0, 0).lineTo(0, 150);
+    sLine.x=250;
+    sLine.y=250;
+    container.addChild(sLine);
+    var sLine30 = sLine.clone();
+    sLine30.rotation = 30;
+    container.addChild(sLine30);
+
+
+    var circleArc = new createjs.Shape();
+    circleArc.graphics.setStrokeStyle(11, "round", "round").beginStroke("#0048FF").arc(250,250,150,0,Math.PI*2);
+    container.addChild(circleArc);
 
     var s = new createjs.Shape();
     s.graphics.setStrokeStyle(1, "round", "round").beginFill("DeepSkyBlue")
