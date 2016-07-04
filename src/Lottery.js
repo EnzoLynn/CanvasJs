@@ -3,7 +3,7 @@ define(function(require, exports, module) {
 	var stage, container, rotation;
 	var preAngle = 0;
 	var Lottery = React.createClass({
-
+		 
 		init: function() {
 			var regX = 200,
 				regY = 200;
