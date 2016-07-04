@@ -112,6 +112,7 @@ define(function (require, exports, module) {
 									// createjs.Ticker.addEventListener("tick", tick);
 						},
 						start: function start() {
+									var me = this;
 									var btn = document.getElementById('button');
 									btn.disabled = 'disabled';
 									var angle = Math.random();
@@ -123,6 +124,7 @@ define(function (require, exports, module) {
 									}).call(function () {
 												preAngle = 360 * angle;
 												rotation = Math.round(3600 + preAngle);
+												var reslut = arr[arr.length - 1 - Math.floor(preAngle / 40)];
 												console.log(preAngle / 40);
 												console.log(arr[arr.length - 1 - Math.floor(preAngle / 40)]);
 												createjs.Tween.get(container, {
@@ -132,6 +134,7 @@ define(function (require, exports, module) {
 												}, 1000 * 10, createjs.Ease.quintOut).call(function () {
 															console.log(preAngle);
 															btn.disabled = false;
+															me.refs.result.innerHTML = '开奖结果：' + reslut;
 												});
 									});
 						},
@@ -143,7 +146,8 @@ define(function (require, exports, module) {
 												'div',
 												{ className: 'lottery' },
 												React.createElement('canvas', { id: 'demoCanvas', width: '400', height: '400' }),
-												React.createElement('input', { id: 'button', type: 'button', value: 'start', onClick: this.start })
+												React.createElement('input', { id: 'button', type: 'button', value: 'start', onClick: this.start }),
+												React.createElement('div', { ref: 'result' })
 									);
 						}
 			});
