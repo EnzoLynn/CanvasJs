@@ -1,11 +1,11 @@
-"use strict";
+'use strict';
 
 define(function (require, exports, module) {
-
+			var arr = ['大奖', '二等奖', '三等奖', '四等奖', '五等奖', '安慰奖', '谢谢参与', '再来1次', '谢谢参与2'];
 			var stage, container, rotation;
 			var preAngle = 0;
 			var Lottery = React.createClass({
-						displayName: "Lottery",
+						displayName: 'Lottery',
 
 						init: function init() {
 									var regX = 200,
@@ -40,15 +40,23 @@ define(function (require, exports, module) {
 									sLine.y = regY;
 									container.addChild(sLine);
 
-									var sText = new createjs.Text("text!" + 0, "36px Arial", "#FFF");
+									var sText = new createjs.Text("!" + arr[0], "16px Arial", "#FFF");
 									sText.x = regX;
 									sText.y = regY;
+									sText.rotation = 110;
+									sText.regX = -50;
+									sText.regY = 10;
 									container.addChild(sText);
 
 									for (var i = 0; i < 9; i++) {
 												var sLine30 = sLine.clone();
 												sLine30.rotation = i * 40;
 												container.addChild(sLine30);
+
+												var sText15 = sText.clone();
+												sText15.text = "!" + arr[i];
+												sText15.rotation = 110 + i * 40;
+												container.addChild(sText15);
 									};
 
 									var circleArc = new createjs.Shape();
@@ -115,11 +123,13 @@ define(function (require, exports, module) {
 									}).call(function () {
 												preAngle = 360 * angle;
 												rotation = Math.round(3600 + preAngle);
+												console.log(preAngle / 40);
+												console.log(arr[arr.length - 1 - Math.floor(preAngle / 40)]);
 												createjs.Tween.get(container, {
 															loop: false
 												}).to({
 															rotation: rotation
-												}, 6000, createjs.Ease.quintOut).wait(1000).call(function () {
+												}, 1000 * 10, createjs.Ease.quintOut).call(function () {
 															console.log(preAngle);
 															btn.disabled = false;
 												});
@@ -130,10 +140,10 @@ define(function (require, exports, module) {
 						},
 						render: function render() {
 									return React.createElement(
-												"div",
-												{ className: "lottery" },
-												React.createElement("canvas", { id: "demoCanvas", width: "400", height: "400" }),
-												React.createElement("input", { id: "button", type: "button", value: "start", onClick: this.start })
+												'div',
+												{ className: 'lottery' },
+												React.createElement('canvas', { id: 'demoCanvas', width: '400', height: '400' }),
+												React.createElement('input', { id: 'button', type: 'button', value: 'start', onClick: this.start })
 									);
 						}
 			});

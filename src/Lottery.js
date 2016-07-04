@@ -1,5 +1,5 @@
 define(function(require, exports, module) {
-
+	var arr = ['大奖','二等奖','三等奖','四等奖','五等奖','安慰奖','谢谢参与','再来1次','谢谢参与2'];
 	var stage, container, rotation;
 	var preAngle = 0;
 	var Lottery = React.createClass({
@@ -40,16 +40,26 @@ define(function(require, exports, module) {
 			sLine.y = regY;
 			container.addChild(sLine);
 
-			var sText = new createjs.Text("text!" + 0, "36px Arial", "#FFF");
+			var sText = new createjs.Text("!" + arr[0], "16px Arial", "#FFF");
 			sText.x = regX;
 			sText.y = regY;
+			sText.rotation = 110;
+			sText.regX= -50;
+			sText.regY= 10;
 			container.addChild(sText);
 
+			
 
 			for (var i = 0; i < 9; i++) {
-				var sLine30 = sLine.clone();
+				var sLine30 = sLine.clone();				
 				sLine30.rotation = i * 40;
 				container.addChild(sLine30);
+
+				var sText15 = sText.clone();
+				sText15.text = "!" + arr[i];
+				sText15.rotation =  110+(i *40); 
+				container.addChild(sText15);
+				
 			};
 
 
@@ -129,16 +139,18 @@ define(function(require, exports, module) {
 				})
 				.to({
 					rotation: -preAngle
-				}).call(function() {
+				}) 
+				.call(function() {
 					preAngle = 360 * angle;
 					rotation = Math.round(3600 + preAngle);
+					console.log(preAngle/40);
+					console.log(arr[arr.length-1-Math.floor(preAngle/40)]);
 					createjs.Tween.get(container, {
 							loop: false
 						})
 						.to({
 							rotation: rotation
-						}, 6000, createjs.Ease.quintOut)
-						.wait(1000)
+						}, 1000*10, createjs.Ease.quintOut) 
 						.call(function() {
 							console.log(preAngle);
 							btn.disabled = false;
