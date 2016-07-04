@@ -1,0 +1,9 @@
+html,
+body {
+  height: 100%;
+}
+html #demoCanvas,
+body #demoCanvas {
+  margin: 0px auto;
+  display: block;
+}

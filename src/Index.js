@@ -1,12 +1,13 @@
+var stage,container,rotation;
 var init = function() {
 	// var width = (document.documentElement.clientWidth||document.body.clientWidth) -20;
 	// var height = (document.documentElement.clientHeight||document.body.clientHeight) -20; 
 	// document.getElementById('demoCanvas').width =width;
 	// document.getElementById('demoCanvas').height =height;
 	//Create a stage by getting a reference to the canvas
-	var stage = new createjs.Stage("demoCanvas");
+	stage = new createjs.Stage("demoCanvas");
 
-	var container = new createjs.Container();
+	container = new createjs.Container();
 	container.x = 250;
 	container.y = 250;
 	container.regX = 250;
@@ -32,11 +33,15 @@ var init = function() {
 	sLine.y = 250;
 	container.addChild(sLine);
 
-	 
-	 
-	for (var i = 0; i < 9; i++) { 
-		var sLine30 = sLine.clone();		 
-		sLine30.rotation = i*40;
+	var sText = new createjs.Text("text!" + 0, "36px Arial", "#FFF");
+	sText.x = 250;
+	sText.y = 250;
+	container.addChild(sText);
+
+
+	for (var i = 0; i < 9; i++) {
+		var sLine30 = sLine.clone();
+		sLine30.rotation = i * 40;
 		container.addChild(sLine30);
 	};
 
@@ -47,7 +52,7 @@ var init = function() {
 	container.addChild(circleArc);
 
 	stage.addChild(container);
-	
+
 	var s = new createjs.Shape();
 	s.graphics.setStrokeStyle(1, "round", "round").beginFill("DeepSkyBlue")
 		.beginStroke("DeepSkyBlue").moveTo(0, 0).lineTo(0, 90)
@@ -58,7 +63,7 @@ var init = function() {
 	s.regX = 3;
 	stage.addChild(s);
 
-	
+
 	//stage.addChild(rect);
 	stage.update();
 
@@ -86,17 +91,40 @@ var init = function() {
 	}
 	stage.addEventListener("pressmove", handleMove);
 
-	var angle = 0;
 
-	function tick(event) {
-		console.log("tick");
-		angle += 1;
-		var value = 12 * angle;
 
-		container.rotation = value;
-		//circle.scaleX = circle.scaleY = value / 360;
-		stage.update(event);
-		// Check out the DragAndDrop example in GitHub for more
-	}
-	createjs.Ticker.addEventListener("tick", tick);
+	createjs.Ticker.setFPS(60);
+
+	createjs.Ticker.addEventListener("tick", stage);
+
+	// function tick(event) {
+	// 	console.log("tick");	
+	// 	var value = 12 * angle;
+
+	// 	angle ++;
+
+	// 	//container.rotation = value;
+	// 	//circle.scaleX = circle.scaleY = value / 360;
+	// 	//stage.update(event);
+	// 	// Check out the DragAndDrop example in GitHub for more
+	// }
+	// createjs.Ticker.addEventListener("tick", tick);
+
+
+}
+
+var start = function() {
+	var angle = Math.random();
+	console.log(angle);
+	rotation = Math.round((3600 + 360 * angle));
+	createjs.Tween.get(container, {
+			loop: false
+		}).to({
+			rotation:0
+		})
+		.wait(1000) // wait for 1 second
+		.to({
+			rotation:rotation
+		}, 6000, createjs.Ease.quintOut);
+	console.log(rotation);
 }

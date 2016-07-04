@@ -1,14 +1,15 @@
 "use strict";
 
+var stage, container, rotation;
 var init = function init() {
 	// var width = (document.documentElement.clientWidth||document.body.clientWidth) -20;
 	// var height = (document.documentElement.clientHeight||document.body.clientHeight) -20;
 	// document.getElementById('demoCanvas').width =width;
 	// document.getElementById('demoCanvas').height =height;
 	//Create a stage by getting a reference to the canvas
-	var stage = new createjs.Stage("demoCanvas");
+	stage = new createjs.Stage("demoCanvas");
 
-	var container = new createjs.Container();
+	container = new createjs.Container();
 	container.x = 250;
 	container.y = 250;
 	container.regX = 250;
@@ -30,6 +31,11 @@ var init = function init() {
 	sLine.x = 250;
 	sLine.y = 250;
 	container.addChild(sLine);
+
+	var sText = new createjs.Text("text!" + 0, "36px Arial", "#FFF");
+	sText.x = 250;
+	sText.y = 250;
+	container.addChild(sText);
 
 	for (var i = 0; i < 9; i++) {
 		var sLine30 = sLine.clone();
@@ -72,17 +78,35 @@ var init = function init() {
 	}
 	stage.addEventListener("pressmove", handleMove);
 
-	var angle = 0;
+	createjs.Ticker.setFPS(60);
 
-	function tick(event) {
-		console.log("tick");
-		angle += 1;
-		var value = 12 * angle;
+	createjs.Ticker.addEventListener("tick", stage);
 
-		container.rotation = value;
-		//circle.scaleX = circle.scaleY = value / 360;
-		stage.update(event);
-		// Check out the DragAndDrop example in GitHub for more
-	}
-	createjs.Ticker.addEventListener("tick", tick);
+	// function tick(event) {
+	// 	console.log("tick");	
+	// 	var value = 12 * angle;
+
+	// 	angle ++;
+
+	// 	//container.rotation = value;
+	// 	//circle.scaleX = circle.scaleY = value / 360;
+	// 	//stage.update(event);
+	// 	// Check out the DragAndDrop example in GitHub for more
+	// }
+	// createjs.Ticker.addEventListener("tick", tick);
+};
+
+var start = function start() {
+	var angle = Math.random();
+	console.log(angle);
+	rotation = Math.round(3600 + 360 * angle);
+	createjs.Tween.get(container, {
+		loop: false
+	}).to({
+		rotation: 0
+	}).wait(1000) // wait for 1 second
+	.to({
+		rotation: rotation
+	}, 6000, createjs.Ease.quintOut);
+	console.log(rotation);
 };
