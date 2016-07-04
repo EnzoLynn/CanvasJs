@@ -95,18 +95,26 @@ var init = function init() {
 	// }
 	// createjs.Ticker.addEventListener("tick", tick);
 };
-
+var preAngle = 0;
 var start = function start() {
+	var btn = document.getElementById('button');
+	btn.disabled = 'disabled';
 	var angle = Math.random();
 	console.log(angle);
-	rotation = Math.round(3600 + 360 * angle);
 	createjs.Tween.get(container, {
 		loop: false
 	}).to({
-		rotation: 0
-	}).wait(1000) // wait for 1 second
-	.to({
-		rotation: rotation
-	}, 6000, createjs.Ease.quintOut);
-	console.log(rotation);
+		rotation: -preAngle
+	}).call(function () {
+		preAngle = 360 * angle;
+		rotation = Math.round(3600 + preAngle);
+		createjs.Tween.get(container, {
+			loop: false
+		}).to({
+			rotation: rotation
+		}, 6000, createjs.Ease.quintOut).wait(1000).call(function () {
+			console.log(preAngle);
+			btn.disabled = false;
+		});
+	});
 };
