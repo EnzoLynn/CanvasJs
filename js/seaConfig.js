@@ -2,14 +2,15 @@
 
 var version = new Date();
 var versionStr = version.getFullYear() + '' + (version.getMonth() + 1) + version.getDate();
+var dist = '/dist';
 seajs.config({
     base: "/",
     paths: {
-        'images': '/image',
-        'css': '/css',
-        'js': '/js',
-        'lib': '/js/lib',
-        'model': '/js/model'
+        'images': dist + '/image',
+        'css': dist + '/css',
+        'js': dist + '/js',
+        'lib': dist + '/js/lib',
+        'model': dist + '/js/model'
     },
     alias: {
         "jquery": "lib/jquery.min"
