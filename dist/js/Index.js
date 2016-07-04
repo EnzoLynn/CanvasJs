@@ -1,1 +1,1 @@
-"use strict";define(function(a,b,c){var d=a("js/Lottery"),e={render:function(){ReactDOM.render(React.createElement(d,null),document.getElementById("container"))}};c.exports=e});
+"use strict";define(function(require,a,b){var Lottery=require("js/Lottery");console.log(Lottery);var c={render:function(){ReactDOM.render(React.createElement(Lottery,null),document.getElementById("container"))}};b.exports=c});

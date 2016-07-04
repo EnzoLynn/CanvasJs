@@ -12,8 +12,8 @@ seajs.config({
         'model': '/js/model'
     },
     alias: {
-        "jquery": "lib/jquery.min"
+        "jquery": "lib/jquery.min" 
     },
     map: [[/^(.*\.(?:css|js))(.*)$/i, '$1?v=' + versionStr + '']],
     charset: 'utf-8'
-});
+}); 

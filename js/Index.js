@@ -3,6 +3,7 @@
 define(function (require, exports, module) {
   var Lottery = require('js/Lottery');
 
+  console.log(Lottery);
   var Index = {
     render: function render() {
       ReactDOM.render(React.createElement(Lottery, null), document.getElementById("container"));
