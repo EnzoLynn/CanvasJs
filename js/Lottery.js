@@ -2,14 +2,25 @@
 
 define(function (require, exports, module) {
 			var arr = ['大奖', '二等奖', '三等奖', '四等奖', '五等奖', '安慰奖', '谢谢参与', '再来1次', '谢谢参与2'];
+			var bgColors = ['#023613', '#660404', '#544902'];
 			var stage, container, rotation;
 			var preAngle = 0;
+			var regX = 200,
+			    regY = 200;
 			var Lottery = React.createClass({
 						displayName: 'Lottery',
 
+						createBgArc: function createBgArc(container, color, angel) {
+									var s1 = new createjs.Shape();
+									s1.graphics.beginStroke(color).beginFill(color).arc(0, 0, 148, 0, Math.PI * 2 / 9).lineTo(0, 0);
+									s1.x = regX;
+									s1.y = regY;
+									s1.rotation = angel;
+									container.addChild(s1);
+						},
 						init: function init() {
-									var regX = 200,
-									    regY = 200;
+									var me = this;
+
 									// var width = (document.documentElement.clientWidth||document.body.clientWidth) -20;
 									// var height = (document.documentElement.clientHeight||document.body.clientHeight) -20;
 									// document.getElementById('demoCanvas').width =width;
@@ -49,6 +60,8 @@ define(function (require, exports, module) {
 									container.addChild(sText);
 
 									for (var i = 0; i < 9; i++) {
+												me.createBgArc(container, bgColors[i % 3], 90 + i * 40);
+
 												var sLine30 = sLine.clone();
 												sLine30.rotation = i * 40;
 												container.addChild(sLine30);
@@ -72,6 +85,7 @@ define(function (require, exports, module) {
 									s.regX = 3;
 									stage.addChild(s);
 									//stage.addChild(rect);
+
 									stage.update();
 
 									function handleClick(event) {

@@ -1,12 +1,23 @@
 define(function(require, exports, module) {
-	var arr = ['大奖','二等奖','三等奖','四等奖','五等奖','安慰奖','谢谢参与','再来1次','谢谢参与2'];
+	var arr = ['大奖', '二等奖', '三等奖', '四等奖', '五等奖', '安慰奖', '谢谢参与', '再来1次', '谢谢参与2'];
+	var bgColors= ['#023613','#660404','#544902'];
 	var stage, container, rotation;
 	var preAngle = 0;
+	var regX = 200,
+		regY = 200;
 	var Lottery = React.createClass({
-
+		createBgArc: function(container,color,angel) {
+			var s1 = new createjs.Shape();
+			s1.graphics.beginStroke(color).beginFill(color)
+				.arc(0, 0, 148, 0, Math.PI * 2 / 9).lineTo(0, 0);
+			s1.x = regX;
+			s1.y = regY;
+			s1.rotation = angel;
+			container.addChild(s1);
+		},
 		init: function() {
-			var regX = 200,
-				regY = 200;
+			var me = this;
+
 			// var width = (document.documentElement.clientWidth||document.body.clientWidth) -20;
 			// var height = (document.documentElement.clientHeight||document.body.clientHeight) -20; 
 			// document.getElementById('demoCanvas').width =width;
@@ -44,22 +55,24 @@ define(function(require, exports, module) {
 			sText.x = regX;
 			sText.y = regY;
 			sText.rotation = 110;
-			sText.regX= -50;
-			sText.regY= 10;
+			sText.regX = -50;
+			sText.regY = 10;
 			container.addChild(sText);
 
-			
+
 
 			for (var i = 0; i < 9; i++) {
-				var sLine30 = sLine.clone();				
+				me.createBgArc(container,bgColors[i%3],90+i * 40);
+
+				var sLine30 = sLine.clone();
 				sLine30.rotation = i * 40;
 				container.addChild(sLine30);
 
 				var sText15 = sText.clone();
 				sText15.text = arr[i];
-				sText15.rotation =  110+(i *40); 
+				sText15.rotation = 110 + (i * 40);
 				container.addChild(sText15);
-				
+
 			};
 
 
@@ -78,8 +91,11 @@ define(function(require, exports, module) {
 			s.x = regX;
 			s.y = regY;
 			s.regX = 3;
-			stage.addChild(s); 
+			stage.addChild(s);
 			//stage.addChild(rect);
+
+			
+
 			stage.update();
 
 			function handleClick(event) {
@@ -138,29 +154,29 @@ define(function(require, exports, module) {
 				})
 				.to({
 					rotation: -preAngle
-				}) 
+				})
 				.call(function() {
 					preAngle = 360 * angle;
 					rotation = Math.round(3600 + preAngle);
-					var reslut =arr[arr.length-1-Math.floor(preAngle/40)];
-					console.log(preAngle/40);
-					console.log(arr[arr.length-1-Math.floor(preAngle/40)]); 
+					var reslut = arr[arr.length - 1 - Math.floor(preAngle / 40)];
+					console.log(preAngle / 40);
+					console.log(arr[arr.length - 1 - Math.floor(preAngle / 40)]);
 					createjs.Tween.get(container, {
 							loop: false
 						})
 						.to({
 							rotation: rotation
-						}, 1000*10, createjs.Ease.quintOut) 
+						}, 1000 * 10, createjs.Ease.quintOut)
 						.call(function() {
 							console.log(preAngle);
 							btn.disabled = false;
-							me.refs.result.innerHTML = '开奖结果：'+reslut;
+							me.refs.result.innerHTML = '开奖结果：' + reslut;
 						});
 				});
 
 
 		},
-		componentDidMount:function(){
+		componentDidMount: function() {
 			this.init();
 		},
 		render: function() {
