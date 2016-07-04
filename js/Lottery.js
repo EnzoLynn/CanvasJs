@@ -71,7 +71,6 @@ define(function (require, exports, module) {
 									s.y = regY;
 									s.regX = 3;
 									stage.addChild(s);
-
 									//stage.addChild(rect);
 									stage.update();
 
