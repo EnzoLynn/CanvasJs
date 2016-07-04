@@ -1,5 +1,6 @@
 var stage, container, rotation;
 var init = function() {
+	var regX = 200,regY=200;
 	// var width = (document.documentElement.clientWidth||document.body.clientWidth) -20;
 	// var height = (document.documentElement.clientHeight||document.body.clientHeight) -20; 
 	// document.getElementById('demoCanvas').width =width;
@@ -8,16 +9,16 @@ var init = function() {
 	stage = new createjs.Stage("demoCanvas");
 
 	container = new createjs.Container();
-	container.x = 250;
-	container.y = 250;
-	container.regX = 250;
-	container.regY = 250;
+	container.x = regX;
+	container.y = regY;
+	container.regX = regX;
+	container.regY = regY;
 
 
 	var circle = new createjs.Shape();
 	circle.graphics.beginFill("#E11010").drawCircle(0, 0, 150);
-	circle.x = 250;
-	circle.y = 250;
+	circle.x = regX;
+	circle.y = regY;
 	// circle.regX = 75;
 	container.addChild(circle);
 
@@ -29,13 +30,13 @@ var init = function() {
 	var sLine = new createjs.Shape();
 	sLine.graphics.setStrokeStyle(3, "round", "round").beginFill("#00FF24").beginStroke("#00FF24")
 		.moveTo(0, 0).lineTo(0, 150);
-	sLine.x = 250;
-	sLine.y = 250;
+	sLine.x = regX;
+	sLine.y = regY;
 	container.addChild(sLine);
 
 	var sText = new createjs.Text("text!" + 0, "36px Arial", "#FFF");
-	sText.x = 250;
-	sText.y = 250;
+	sText.x = regX;
+	sText.y = regY;
 	container.addChild(sText);
 
 
@@ -48,7 +49,7 @@ var init = function() {
 
 
 	var circleArc = new createjs.Shape();
-	circleArc.graphics.setStrokeStyle(11, "round", "round").beginStroke("#0048FF").arc(250, 250, 150, 0, Math.PI * 2);
+	circleArc.graphics.setStrokeStyle(11, "round", "round").beginStroke("#0048FF").arc(regX, regY, 150, 0, Math.PI * 2);
 	container.addChild(circleArc);
 
 	stage.addChild(container);
@@ -58,8 +59,8 @@ var init = function() {
 		.beginStroke("DeepSkyBlue").moveTo(0, 0).lineTo(0, 90)
 		.lineTo(-12, 90).lineTo(2, 110).lineTo(18, 90)
 		.lineTo(6, 90).lineTo(6, 0)
-	s.x = 250;
-	s.y = 250;
+	s.x = regX;
+	s.y = regY;
 	s.regX = 3;
 	stage.addChild(s);
 
