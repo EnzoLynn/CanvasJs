@@ -3,7 +3,7 @@ define(function(require, exports, module) {
 	var stage, container, rotation;
 	var preAngle = 0;
 	var Lottery = React.createClass({
-		 
+
 		init: function() {
 			var regX = 200,
 				regY = 200;
@@ -40,7 +40,7 @@ define(function(require, exports, module) {
 			sLine.y = regY;
 			container.addChild(sLine);
 
-			var sText = new createjs.Text("!" + arr[0], "16px Arial", "#FFF");
+			var sText = new createjs.Text(arr[0], "16px Arial", "#FFF");
 			sText.x = regX;
 			sText.y = regY;
 			sText.rotation = 110;
@@ -56,7 +56,7 @@ define(function(require, exports, module) {
 				container.addChild(sLine30);
 
 				var sText15 = sText.clone();
-				sText15.text = "!" + arr[i];
+				sText15.text = arr[i];
 				sText15.rotation =  110+(i *40); 
 				container.addChild(sText15);
 				
