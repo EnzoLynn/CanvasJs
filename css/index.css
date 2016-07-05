@@ -1,5 +1,5 @@
-html #demoCanvas,
-body #demoCanvas {
+html .demoCanvas,
+body .demoCanvas {
   margin: 0px auto;
   display: block;
 }

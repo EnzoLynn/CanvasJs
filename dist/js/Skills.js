@@ -1,0 +1,1 @@
+"use strict";define(function(require,a,b){var c=require("js/SkillsTree"),d={render:function(){ReactDOM.render(React.createElement(c,null),document.getElementById("container"))}};b.exports=d});

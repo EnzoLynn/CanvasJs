@@ -23,7 +23,7 @@ define(function(require, exports, module) {
 			// document.getElementById('demoCanvas').width =width;
 			// document.getElementById('demoCanvas').height =height;
 			//Create a stage by getting a reference to the canvas
-			stage = new createjs.Stage("demoCanvas");
+			stage = new createjs.Stage(me.refs.demoCanvas);
 
 			container = new createjs.Container();
 			container.x = regX;
@@ -145,7 +145,7 @@ define(function(require, exports, module) {
 		},
 		start: function() {
 			var me = this;
-			var btn = document.getElementById('button');
+			var btn = me.refs.button;
 			btn.disabled = 'disabled';
 			var angle = Math.random();
 			console.log(angle);
@@ -182,10 +182,10 @@ define(function(require, exports, module) {
 		render: function() {
 			return (
 				<div className="lottery">
-					<canvas id='demoCanvas' width="400" height="400">
+					<canvas ref='demoCanvas' className="demoCanvas" width="400" height="400">
 		
 					</canvas>
-					<input id='button' type="button" value="start"  onClick={this.start}/>
+					<input ref='button' type="button" value="start"  onClick={this.start}/>
 					<div ref='result'></div>
 				</div>
 			);
