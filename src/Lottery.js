@@ -56,7 +56,7 @@ define(function(require, exports, module) {
 			sText.y = regY;
 			sText.rotation = 110;
 			sText.regX = -50;
-			sText.regY = 10;
+			sText.regY = 6;
 			container.addChild(sText);
 
 
