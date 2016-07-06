@@ -1,9 +1,10 @@
  define(function(require, exports, module) {
  	var Lottery = require('js/Lottery'); 
+ 	var LinkList = require('js/linkList');
  	var Index = {
  		render: function() {
  			ReactDOM.render(
- 				<Lottery />,
+ 				<div><LinkList/><Lottery /></div>,
  				document.getElementById("container")
  			);
  		}

@@ -2,6 +2,7 @@
 
 define(function (require, exports, module) {
 	var stage, container;
+
 	var SkillsTree = React.createClass({
 		displayName: "SkillsTree",
 
@@ -13,7 +14,13 @@ define(function (require, exports, module) {
 			container.x = 0;
 			container.y = 0;
 
+			var rect = new createjs.Shape();
+			rect.graphics.beginFill("DeepSkyBlue").drawRect(0, 0, 100, 30); //.drawCircle(0, 0, 50);
+			container.addChild(rect);
+
 			stage.addChild(container);
+
+			stage.update();
 		},
 		componentDidMount: function componentDidMount() {
 			var me = this;

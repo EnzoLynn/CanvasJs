@@ -1,0 +1,1 @@
+"use strict";define(function(require,a,b){var c=React.createClass({displayName:"LinkList",render:function(){return React.createElement("div",{className:"LinkList"},React.createElement("a",{href:"index.html"},"轮盘"),React.createElement("a",{href:"skills.html"},"技能树"))}});b.exports=c});

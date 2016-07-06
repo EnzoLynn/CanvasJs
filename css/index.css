@@ -3,3 +3,7 @@ body .demoCanvas {
   margin: 0px auto;
   display: block;
 }
+html .LinkList a,
+body .LinkList a {
+  margin-right: 10px;
+}

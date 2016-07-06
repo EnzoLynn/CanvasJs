@@ -1,10 +1,11 @@
 define(function(require, exports, module) {
 
 	var SkillsTree = require("js/SkillsTree");
+	var LinkList = require('js/linkList');
 	var Skills = {
  		render: function() {
  			ReactDOM.render(
- 				<SkillsTree />,
+ 				<div><LinkList/><SkillsTree /></div>,
  				document.getElementById("container")
  			);
  		}
