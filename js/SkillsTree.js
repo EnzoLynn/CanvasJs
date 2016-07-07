@@ -7,7 +7,7 @@ define(function (require, exports, module) {
 		"自动编译": ['Babel', 'Less', 'Sass', 'Concat', 'Uglify', 'Cssmin', 'Copy', 'Jshint'],
 		"编程语言": ['JavaScript', 'Html/Html5/DHtml', 'Css', 'NodeJs', 'C#'],
 		"UI框架": ['Extjs', 'ThreeJs', 'MUI', 'Bootstrap', 'Framwork', 'SUI', 'Telerik'],
-		"工具框架": ['ReactJs', 'React-Native', 'Handlebars', 'Jquery', 'Html5plus', 'Express'],
+		"工具框架": ['ReactJs', 'React-Native', 'Handlebars', 'Jquery', 'Html5plus', 'Express', 'Modernizr'],
 		"MVC框架": ['AngularJs', 'Backbone', 'EntityFramework'],
 		"加载器": ['Seajs', 'RequireJs'],
 		"数据库": ['SqlServer', 'Mongodb', 'Access'],
@@ -33,11 +33,22 @@ define(function (require, exports, module) {
 			line.graphics.beginStroke("#D60707").moveTo(0, 0).lineTo(0, 10); //.drawCircle(0, 0, 50);
 			line.x = 50;
 			line.y = 30;
+			line.alpha = 0;
 			container.addChild(line);
+
+			var lineL = line.clone();
+			lineL.y = 70;
+			lineL.alpha = 1;
+			lineL.rotation = 90;
+			container.addChild(lineL);
+
+			var lineR = lineL.clone();
+			lineR.rotation = 270;
+			container.addChild(lineR);
 
 			return {
 				container: container,
-				line: line
+				line: [line, lineL, lineR]
 			};
 		},
 		init: function init() {
@@ -52,13 +63,20 @@ define(function (require, exports, module) {
 
 			stage.update();
 			//createjs.Ticker.setFPS(20);
-			createjs.Ticker.addEventListener("tick", stage);
-			createjs.Tween.get(skill.line, {
-				loop: false
-			}).to({
-				scaleX: 3,
-				scaleY: 4
-			}, 1000 * 10, createjs.Ease.quintOut);
+			createjs.Ticker.addEventListener("tick", tick);
+			function tick() {
+				stage.update();
+			}
+
+			skill.line.forEach(function (element, index) {
+				createjs.Tween.get(element, {
+					loop: false
+				}).to({
+					alpha: 1,
+					scaleX: 3,
+					scaleY: 4
+				}, 1000 * 10, createjs.Ease.quintOut);
+			});
 		},
 		componentDidMount: function componentDidMount() {
 			var me = this;

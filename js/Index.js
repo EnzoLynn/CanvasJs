@@ -1,6 +1,7 @@
 'use strict';
 
 define(function (require, exports, module) {
+  require('js/CheckNav');
   var Lottery = require('js/Lottery');
   var LinkList = require('js/linkList');
   var Index = {

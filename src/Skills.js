@@ -1,5 +1,5 @@
 define(function(require, exports, module) {
-
+	require('js/CheckNav');
 	var SkillsTree = require("js/SkillsTree");
 	var LinkList = require('js/linkList');
 	var Skills = {

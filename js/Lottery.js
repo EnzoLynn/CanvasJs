@@ -109,7 +109,12 @@ define(function (require, exports, module) {
 
 									createjs.Ticker.setFPS(60);
 
-									createjs.Ticker.addEventListener("tick", stage);
+									createjs.Ticker.addEventListener("tick", tick);
+
+									function tick(event) {
+
+												stage.update(event);
+									}
 
 									// function tick(event) {
 									// 	console.log("tick");	

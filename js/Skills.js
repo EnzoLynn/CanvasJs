@@ -1,13 +1,13 @@
-"use strict";
+'use strict';
 
 define(function (require, exports, module) {
-
+  require('js/CheckNav');
   var SkillsTree = require("js/SkillsTree");
   var LinkList = require('js/linkList');
   var Skills = {
     render: function render() {
       ReactDOM.render(React.createElement(
-        "div",
+        'div',
         null,
         React.createElement(LinkList, null),
         React.createElement(SkillsTree, null)
