@@ -38,7 +38,6 @@ define(function (require, exports, module) {
 
 			var lineL = line.clone();
 			lineL.y = 70;
-			lineL.alpha = 1;
 			lineL.rotation = 90;
 			container.addChild(lineL);
 
@@ -64,18 +63,28 @@ define(function (require, exports, module) {
 			stage.update();
 			//createjs.Ticker.setFPS(20);
 			createjs.Ticker.addEventListener("tick", tick);
+
 			function tick() {
 				stage.update();
 			}
 
-			skill.line.forEach(function (element, index) {
-				createjs.Tween.get(element, {
-					loop: false
-				}).to({
-					alpha: 1,
-					scaleX: 3,
-					scaleY: 4
-				}, 1000 * 10, createjs.Ease.quintOut);
+			createjs.Tween.get(skill.line[0], {
+				loop: false
+			}).to({
+				alpha: 1,
+				scaleX: 3,
+				scaleY: 4
+			}, 1000 * 3, createjs.Ease.quintOut).call(function () {
+				skill.line.forEach(function (element, index) {
+					if (index == 0) return true;
+					createjs.Tween.get(element, {
+						loop: false
+					}).to({
+						alpha: 1,
+						scaleX: 3,
+						scaleY: 4
+					}, 1000 * 3, createjs.Ease.quintOut);
+				});
 			});
 		},
 		componentDidMount: function componentDidMount() {
