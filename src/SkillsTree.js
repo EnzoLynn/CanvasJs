@@ -16,45 +16,66 @@ define(function(require, exports, module) {
 		"交互/协议": ['Json', 'Xml', 'Ajax', 'Http/Https', 'Tcp/IP', 'UDP']
 	};
 	var SkillsTree = React.createClass({
-		createSkill: function(x, y) {
+		createSkill: function(param) {
+			var def = param||{};
 			var container = new createjs.Container();
-			container.x = x || 0;
-			container.y = y || 0;
 
+			container.x = def.x || 0;
+			container.y = def.y || 0;
+
+			var rectW=100,rectH=30;
 			var rect = new createjs.Shape();
-			rect.graphics.beginFill("DeepSkyBlue").drawRect(0, 0, 100, 30); //.drawCircle(0, 0, 50);
+			rect.graphics.beginFill("DeepSkyBlue").drawRect(0, 0, rectW, rectH); //.drawCircle(0, 0, 50);
 			container.addChild(rect);
+
+			 
 
 			var line = new createjs.Shape();
 			line.graphics.beginStroke("#D60707").moveTo(0, 0).lineTo(0, 10); //.drawCircle(0, 0, 50);
-			line.x = 50;
-			line.y = 30;
-			line.alpha = 0;
+			line.x = rectW/2;
+			line.y = rectH;
+			line.alpha = 1;
 			container.addChild(line);
 
-			var lineL = line.clone();
-			lineL.y = 70; 
+			var lineL = new createjs.Shape();
+			lineL.graphics.beginStroke("#D60707").moveTo(0, 0)
+			     .lineTo(0, 10).lineTo(10,10); //.drawCircle(0, 0, 50);
+			lineL.x = rectW/2;
+			lineL.y = rectH+40; 
 			lineL.rotation = 90;
 			container.addChild(lineL);
 
-			var lineR = lineL.clone();
-			lineR.rotation = 270;
+			var lineR = new createjs.Shape();		
+			lineR.graphics.beginStroke("#D60707").moveTo(0, 0)
+			     .lineTo(0, 10).lineTo(-10,10); //.drawCircle(0, 0, 50);
+			lineR.x = rectW/2;
+			lineR.y = rectH+40; 
+			lineR.rotation = -90;
 			container.addChild(lineR);
+
+
 
 			return {
 				container: container,
 				line: [line, lineL, lineR]
 			};
 		},
+		 
 		init: function() {
 			var me = this;
 			stage = new createjs.Stage(me.refs.skillTree);
 
 
-			var skill = me.createSkill();
-			var skill2 = me.createSkill(110, 50);
+			var skill = me.createSkill({
+				x:110,
+				y:0 
+			});
+			var skill2 = me.createSkill({
+				x:210,
+				y:70 
+			}); 
 
-			stage.addChild(skill.container);
+			stage.addChild(skill.container); 
 			stage.addChild(skill2.container);
 
 			stage.update();
@@ -65,7 +86,29 @@ define(function(require, exports, module) {
 				stage.update();
 			}
 
-			createjs.Tween.get(skill.line[0], {
+			// createjs.Tween.get(skill.line[0], {
+			// 		loop: false
+			// 	})
+			// 	.to({
+			// 		alpha: 1,
+			// 		scaleX: 3,
+			// 		scaleY: 4
+			// 	}, 1000 * baseDelay, createjs.Ease.quintOut)
+			// 	.call(function() {
+			// 		skill.line.forEach(function(element, index) {
+			// 			if(index==0)return true; 
+			// 			createjs.Tween.get(element, {
+			// 					loop: false
+			// 				})
+			// 				.to({
+			// 					alpha: 1,
+			// 					scaleX: 3,
+			// 					scaleY: 4
+			// 				}, 1000 * baseDelay, createjs.Ease.quintOut);
+			// 		});
+			// 	});
+
+			createjs.Tween.get(skill2.line[0], {
 					loop: false
 				})
 				.to({
@@ -74,7 +117,7 @@ define(function(require, exports, module) {
 					scaleY: 4
 				}, 1000 * baseDelay, createjs.Ease.quintOut)
 				.call(function() {
-					skill.line.forEach(function(element, index) {
+					skill2.line.forEach(function(element, index) {
 						if(index==0)return true; 
 						createjs.Tween.get(element, {
 								loop: false
