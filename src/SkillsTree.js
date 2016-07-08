@@ -45,12 +45,9 @@ define(function(require, exports, module) {
 			lineL.rotation = 90;
 			container.addChild(lineL);
 
-			var lineR = new createjs.Shape();		
-			lineR.graphics.beginStroke("#D60707").moveTo(0, 0)
-			     .lineTo(0, 10).lineTo(-10,10); //.drawCircle(0, 0, 50);
-			lineR.x = rectW/2;
-			lineR.y = rectH+40; 
-			lineR.rotation = -90;
+			var lineR = lineL.clone();
+			lineR.scaleY = -1;		
+			 
 			container.addChild(lineR);
 
 
