@@ -1,7 +1,8 @@
 'use strict';
 
 define(function (require, exports, module) {
-	var stage;
+	var stage,
+	    baseDelay = 3;
 	var skills = {
 		"自动构建": ['Grunt', 'Glup', 'Webpack'],
 		"自动编译": ['Babel', 'Less', 'Sass', 'Concat', 'Uglify', 'Cssmin', 'Copy', 'Jshint'],
@@ -74,7 +75,7 @@ define(function (require, exports, module) {
 				alpha: 1,
 				scaleX: 3,
 				scaleY: 4
-			}, 1000 * 3, createjs.Ease.quintOut).call(function () {
+			}, 1000 * baseDelay, createjs.Ease.quintOut).call(function () {
 				skill.line.forEach(function (element, index) {
 					if (index == 0) return true;
 					createjs.Tween.get(element, {
@@ -83,7 +84,7 @@ define(function (require, exports, module) {
 						alpha: 1,
 						scaleX: 3,
 						scaleY: 4
-					}, 1000 * 3, createjs.Ease.quintOut);
+					}, 1000 * baseDelay, createjs.Ease.quintOut);
 				});
 			});
 		},
