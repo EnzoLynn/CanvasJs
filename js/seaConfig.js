@@ -2,7 +2,7 @@
 
 var version = new Date();
 var versionStr = version.getFullYear() + '' + (version.getMonth() + 1) + version.getDate();
-var dist = '/dist';
+var dist = '';
 seajs.config({
     base: "/",
     paths: {
