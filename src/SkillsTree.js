@@ -69,7 +69,7 @@ define(function(require, exports, module) {
 			frect.filters = filters;
 			frect.x = px + srcSharp.x + 2;
 			frect.y = py + srcSharp.y + 2;
-			frect.cache(0, 0, 800, 600);
+			frect.cache(-100,-100, 800,600);
 
 			return frect;
 		},
@@ -154,12 +154,13 @@ define(function(require, exports, module) {
 							alpha: 1,
 							scaleX: 0.5,
 							scaleY: temp.reverse ? -2 : 2
-						}, 1000 * baseDelay, createjs.Ease.quintOut).
-						call(function(){
+						}, 1000 * baseDelay, createjs.Ease.quintOut)
+						.call(function(){
 							skill2.filterDom = me.createShadow(skill2);
 							stage.addChildAt(skill2.filterDom,stage.getChildIndex(skill2));
 						});
 					temp = skill2.getChildByName('lineR');
+					 
 					createjs.Tween.get(temp, {
 							loop: false
 						})
@@ -167,7 +168,11 @@ define(function(require, exports, module) {
 							alpha: 1,
 							scaleX: 0.5,
 							scaleY: temp.reverse ? -2 : 2
-						}, 1000 * baseDelay, createjs.Ease.quintOut);
+						}, 1000 * baseDelay, createjs.Ease.quintOut)					 
+						.call(function(){
+							skill2.filterDom = me.createShadow(skill2);
+							stage.addChildAt(skill2.filterDom,stage.getChildIndex(skill2));
+						});
 				});
 
 
