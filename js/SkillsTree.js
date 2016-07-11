@@ -61,6 +61,8 @@ define(function (require, exports, module) {
 			return container;
 		},
 		createShadow: function createShadow(srcSharp, x, y) {
+			var me = this;
+
 			var px = x || 0;
 			var py = y || 0;
 			var filters = [new createjs.ColorFilter(0, 0, 0, 0.6), new createjs.BlurFilter(5, 5, 1)];
@@ -68,7 +70,9 @@ define(function (require, exports, module) {
 			frect.filters = filters;
 			frect.x = px + srcSharp.x + 2;
 			frect.y = py + srcSharp.y + 2;
-			frect.cache(-100, -100, 800, 600);
+			var w = me.refs.skillTree.getAttribute('width');
+			var h = me.refs.skillTree.getAttribute('height');
+			frect.cache(-frect.x, -frect.y, w, h);
 
 			return frect;
 		},
