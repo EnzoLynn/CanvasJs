@@ -39,14 +39,15 @@ define(function(require, exports, module) {
 
 			var lineL = new createjs.Shape();
 			lineL.graphics.beginStroke("#D60707").moveTo(0, 0)
-			     .lineTo(0, 10).lineTo(10,10); //.drawCircle(0, 0, 50);
+			     .lineTo(0, 40).lineTo(20,40); //.drawCircle(0, 0, 50);
 			lineL.x = rectW/2;
-			lineL.y = rectH+40; 
+			lineL.y = rectH+20; 
 			lineL.rotation = 90;
 			container.addChild(lineL);
 
 			var lineR = lineL.clone();
-			lineR.scaleY = -1;		
+			lineR.scaleY = -1;	
+			lineR.reverse = true;	
 			 
 			container.addChild(lineR);
 
@@ -54,10 +55,22 @@ define(function(require, exports, module) {
 
 			return {
 				container: container,
+				rect:rect,
 				line: [line, lineL, lineR]
 			};
 		},
-		 
+		createShadow:function(srcSharp,x,y){ 
+			var px = x||0;
+			var py = y||0;
+			var filters = [new createjs.ColorFilter(0,0,0,0.6), new createjs.BlurFilter(5,5,1)];
+			var frect = srcSharp.clone();
+			frect.filters = filters;  
+			frect.x=px+srcSharp.x+2;
+			frect.y=py+srcSharp.y+2;
+			frect.cache(0,0,800,600);
+			
+			return frect;
+		},
 		init: function() {
 			var me = this;
 			stage = new createjs.Stage(me.refs.skillTree);
@@ -65,15 +78,20 @@ define(function(require, exports, module) {
 
 			var skill = me.createSkill({
 				x:110,
-				y:0 
+				y:0
 			});
+			  
+			stage.addChild(me.createShadow(skill.rect,skill.container.x,skill.container.y));  
+			stage.addChild(skill.container); 
+			 
+
 			var skill2 = me.createSkill({
 				x:210,
 				y:70 
-			}); 
-
-			stage.addChild(skill.container); 
+			});
+			stage.addChild(me.createShadow(skill2.rect,skill2.container.x,skill2.container.y)); 
 			stage.addChild(skill2.container);
+  
 
 			stage.update();
 			//createjs.Ticker.setFPS(20);
@@ -110,10 +128,12 @@ define(function(require, exports, module) {
 				})
 				.to({
 					alpha: 1,
-					scaleX: 3,
-					scaleY: 4
+					scaleX: 1,
+					scaleY: 2
 				}, 1000 * baseDelay, createjs.Ease.quintOut)
 				.call(function() {
+					stage.addChildAt(me.createShadow(skill2.line[0],skill2.container.x,skill2.container.y),
+									skill2.container.getChildIndex(skill2.line[0]));
 					skill2.line.forEach(function(element, index) {
 						if(index==0)return true; 
 						createjs.Tween.get(element, {
@@ -121,9 +141,13 @@ define(function(require, exports, module) {
 							})
 							.to({
 								alpha: 1,
-								scaleX: 3,
-								scaleY: 4
-							}, 1000 * baseDelay, createjs.Ease.quintOut);
+								scaleX: 0.5,
+								scaleY: element.reverse?-2:2
+							}, 1000 * baseDelay, createjs.Ease.quintOut)
+							.call(function(){ 
+								stage.addChildAt(me.createShadow(element,skill2.container.x,skill2.container.y),
+									skill2.container.getChildIndex(element));
+							});
 					});
 				});
 
@@ -137,7 +161,7 @@ define(function(require, exports, module) {
 		render: function() {
 			return (
 				<div className="skills">					
-					<canvas ref='skillTree' className="demoCanvas" width="400" height="400">
+					<canvas ref='skillTree' className="demoCanvas" width="800" height="600">
 						
 					</canvas>
 				</div>
