@@ -7,3 +7,17 @@ html .LinkList a,
 body .LinkList a {
   margin-right: 10px;
 }
+html .lottery .foo,
+body .lottery .foo {
+  margin: 0px auto;
+  display: block;
+  width: 60px;
+  position: static  !important;
+  color: #FFF;
+}
+html .lottery .foo .button,
+body .lottery .foo .button {
+  height: 50px;
+  width: 60px;
+  border-radius: 40px;
+}

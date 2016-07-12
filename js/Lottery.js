@@ -10,6 +10,13 @@ define(function (require, exports, module) {
 			var Lottery = React.createClass({
 						displayName: 'Lottery',
 
+						getCss: function getCss(obj) {
+									if (obj.currentStyle) {
+												return obj.currentStyle;
+									} else {
+												return getComputedStyle(obj, false);
+									}
+						},
 						createBgArc: function createBgArc(container, color, angel) {
 									var s1 = new createjs.Shape();
 									s1.graphics.beginStroke(color).beginFill(color).arc(0, 0, 148, 0, Math.PI * 2 / 9).lineTo(0, 0);
@@ -77,6 +84,12 @@ define(function (require, exports, module) {
 									container.addChild(circleArc);
 
 									stage.addChild(container);
+
+									var content = new createjs.DOMElement(me.refs.foo);
+									var height = parseInt(me.getCss(me.refs.button).height);
+									content.regY = regY + height / 2;
+									//content.visible = false;
+									stage.addChild(content);
 
 									var s = new createjs.Shape();
 									s.graphics.setStrokeStyle(1, "round", "round").beginFill("DeepSkyBlue").beginStroke("DeepSkyBlue").moveTo(0, 0).lineTo(0, 90).lineTo(-12, 90).lineTo(2, 110).lineTo(18, 90).lineTo(6, 90).lineTo(6, 0);
@@ -164,8 +177,16 @@ define(function (require, exports, module) {
 												'div',
 												{ className: 'lottery' },
 												React.createElement('canvas', { ref: 'demoCanvas', className: 'demoCanvas', width: '400', height: '400' }),
-												React.createElement('input', { ref: 'button', type: 'button', value: 'start', onClick: this.start }),
-												React.createElement('div', { ref: 'result' })
+												React.createElement(
+															'div',
+															{ ref: 'foo', className: 'foo' },
+															React.createElement(
+																		'button',
+																		{ ref: 'button', className: 'button', onClick: this.start },
+																		'开始'
+															)
+												),
+												React.createElement('div', { ref: 'result', className: 'result' })
 									);
 						}
 			});

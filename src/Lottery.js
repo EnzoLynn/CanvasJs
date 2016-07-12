@@ -1,12 +1,20 @@
 define(function(require, exports, module) {
 	var arr = ['大奖', '二等奖', '三等奖', '四等奖', '五等奖', '安慰奖', '谢谢参与', '再来1次', '谢谢参与2'];
-	var bgColors= ['#023613','#660404','#544902'];
+	var bgColors = ['#023613', '#660404', '#544902'];
 	var stage, container, rotation;
 	var preAngle = 0;
 	var regX = 200,
 		regY = 200;
 	var Lottery = React.createClass({
-		createBgArc: function(container,color,angel) {
+		getCss: function(obj) {
+			if (obj.currentStyle) {
+				return obj.currentStyle;
+			} else {
+				return getComputedStyle(obj, false);
+			}
+
+		},
+		createBgArc: function(container, color, angel) {
 			var s1 = new createjs.Shape();
 			s1.graphics.beginStroke(color).beginFill(color)
 				.arc(0, 0, 148, 0, Math.PI * 2 / 9).lineTo(0, 0);
@@ -62,7 +70,7 @@ define(function(require, exports, module) {
 
 
 			for (var i = 0; i < 9; i++) {
-				me.createBgArc(container,bgColors[i%3],90+i * 40);
+				me.createBgArc(container, bgColors[i % 3], 90 + i * 40);
 
 				var sLine30 = sLine.clone();
 				sLine30.rotation = i * 40;
@@ -83,6 +91,14 @@ define(function(require, exports, module) {
 
 			stage.addChild(container);
 
+
+
+			var content = new createjs.DOMElement(me.refs.foo); 
+			var height = parseInt(me.getCss(me.refs.button).height);
+			content.regY = regY + height/2;
+			//content.visible = false;
+			stage.addChild(content);
+
 			var s = new createjs.Shape();
 			s.graphics.setStrokeStyle(1, "round", "round").beginFill("DeepSkyBlue")
 				.beginStroke("DeepSkyBlue").moveTo(0, 0).lineTo(0, 90)
@@ -94,7 +110,7 @@ define(function(require, exports, module) {
 			stage.addChild(s);
 			//stage.addChild(rect);
 
-			
+
 
 			stage.update();
 
@@ -129,7 +145,7 @@ define(function(require, exports, module) {
 			createjs.Ticker.addEventListener("tick", tick);
 
 			function tick(event) {
-			 
+
 				stage.update(event);
 			}
 
@@ -190,8 +206,12 @@ define(function(require, exports, module) {
 					<canvas ref='demoCanvas' className="demoCanvas" width="400" height="400">
 		
 					</canvas>
-					<input ref='button' type="button" value="start"  onClick={this.start}/>
-					<div ref='result'></div>
+					 
+					
+					<div ref="foo" className='foo'>
+			 			<button ref='button'  className='button' onClick={this.start}>开始</button> 
+					</div>
+					<div ref='result'   className='result'></div>
 				</div>
 			);
 		}
