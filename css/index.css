@@ -19,6 +19,7 @@ html .lottery .foo .button,
 body .lottery .foo .button {
   margin: 0px auto;
   display: block;
+  background-color: white;
   height: 50px;
   width: 60px;
   border-radius: 40px;
