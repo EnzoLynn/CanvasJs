@@ -62,7 +62,7 @@ define(function(require, exports, module) {
 
 		},
 		createShadow: function(srcSharp, x, y) {
-			var me  = this;
+			var me = this;
 
 			var px = x || 0;
 			var py = y || 0;
@@ -71,9 +71,9 @@ define(function(require, exports, module) {
 			frect.filters = filters;
 			frect.x = px + srcSharp.x + 2;
 			frect.y = py + srcSharp.y + 2;
-			let w  = me.refs.skillTree.getAttribute('width');
-			let h  = me.refs.skillTree.getAttribute('height'); 
-			frect.cache(-frect.x,-frect.y,w,h);
+			let w = me.refs.skillTree.getAttribute('width');
+			let h = me.refs.skillTree.getAttribute('height');
+			frect.cache(-frect.x, -frect.y, w, h);
 
 			return frect;
 		},
@@ -95,11 +95,12 @@ define(function(require, exports, module) {
 				x: 210,
 				y: 70
 			});
-			
+			skill2.filterDom = {};
 			stage.addChild(skill2);
 
 
 			stage.update();
+			stage.enableMouseOver(5);
 			//createjs.Ticker.setFPS(20);
 			createjs.Ticker.addEventListener("tick", tick);
 
@@ -107,17 +108,37 @@ define(function(require, exports, module) {
 				stage.update();
 			}
 
+			var skill2Old = {
+				x: skill2.x,
+				y: skill2.y
+			};
 
 			function handleMove(evt) {
-				console.log("move");
+				//console.log("move");
 				// Check out the DragAndDrop example in GitHub for more
-				this.x = evt.stageX;
+				if (evt.stageY < skill2Old.y) {
+					console.log('up');
+				}
+				if (evt.stageY == skill2Old.y) {
+					console.log('==');
+				}
+				if (evt.stageY > skill2Old.y) {
+					console.log('down');
+				}
+				//this.x = evt.stageX;
 				this.y = evt.stageY;
-				this.filterDom.x = evt.stageX + 2;
+				// this.filterDom.x = evt.stageX + 2;
 				this.filterDom.y = evt.stageY + 2;
 			}
 			skill2.on("pressmove", handleMove);
-
+			skill2.on("rollover", function(evt) {
+				skill2.alpha = 0.2;
+				skill2.filterDom.alpha = 0.2;
+			});
+			skill2.on("rollout", function(evt) {
+				skill2.alpha = 1;
+				skill2.filterDom.alpha = 1;
+			});
 			// createjs.Tween.get(skill.line[0], {
 			// 		loop: false
 			// 	})
@@ -158,13 +179,9 @@ define(function(require, exports, module) {
 							alpha: 1,
 							scaleX: 0.5,
 							scaleY: temp.reverse ? -2 : 2
-						}, 1000 * baseDelay, createjs.Ease.quintOut)
-						.call(function(){
-							skill2.filterDom = me.createShadow(skill2);
-							stage.addChildAt(skill2.filterDom,stage.getChildIndex(skill2));
-						});
+						}, 1000 * baseDelay, createjs.Ease.quintOut);
 					temp = skill2.getChildByName('lineR');
-					 
+
 					createjs.Tween.get(temp, {
 							loop: false
 						})
@@ -172,10 +189,10 @@ define(function(require, exports, module) {
 							alpha: 1,
 							scaleX: 0.5,
 							scaleY: temp.reverse ? -2 : 2
-						}, 1000 * baseDelay, createjs.Ease.quintOut)					 
-						.call(function(){
+						}, 1000 * baseDelay, createjs.Ease.quintOut)
+						.call(function() {
 							skill2.filterDom = me.createShadow(skill2);
-							stage.addChildAt(skill2.filterDom,stage.getChildIndex(skill2));
+							stage.addChildAt(skill2.filterDom, stage.getChildIndex(skill2));
 						});
 				});
 
