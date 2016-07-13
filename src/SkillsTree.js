@@ -114,7 +114,7 @@ define(function(require, exports, module) {
 			};
 
 			function handleMove(evt) {
-				//console.log("move");
+				// console.log("move");
 				// Check out the DragAndDrop example in GitHub for more
 				if (evt.stageY < skill2Old.y) {
 					console.log('up');
@@ -130,8 +130,16 @@ define(function(require, exports, module) {
 				// this.filterDom.x = evt.stageX + 2;
 				this.filterDom.y = evt.stageY + 2;
 			}
-			stage.on("pressmove", handleMove);
+			skill2.on("pressmove", handleMove);
 			 
+			me.refs.skillTree.addEventListener("mousedown", function (evt) {
+				console.log("up!", evt);
+				console.log(stage.globalToLocal(evt.pageX - me.refs.skillTree.offsetLeft, evt.pageY - me.refs.skillTree.offsetTop));
+				var point =stage.globalToLocal(evt.pageX - me.refs.skillTree.offsetLeft, evt.pageY - me.refs.skillTree.offsetTop);
+				skill2.y = point.y;
+				// this.filterDom.x = evt.stageX + 2;
+				skill2.filterDom.y = point.y+ 2;
+			});
 			// createjs.Tween.get(skill.line[0], {
 			// 		loop: false
 			// 	})
