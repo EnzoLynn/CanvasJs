@@ -96,7 +96,7 @@ define(function (require, exports, module) {
 			stage.addChild(skill2);
 
 			stage.update();
-			stage.enableMouseOver(5);
+			// stage.enableMouseOver(5);
 			//createjs.Ticker.setFPS(20);
 			createjs.Ticker.addEventListener("tick", tick);
 
@@ -126,15 +126,8 @@ define(function (require, exports, module) {
 				// this.filterDom.x = evt.stageX + 2;
 				this.filterDom.y = evt.stageY + 2;
 			}
-			skill2.on("pressmove", handleMove);
-			skill2.on("rollover", function (evt) {
-				skill2.alpha = 0.2;
-				skill2.filterDom.alpha = 0.2;
-			});
-			skill2.on("rollout", function (evt) {
-				skill2.alpha = 1;
-				skill2.filterDom.alpha = 1;
-			});
+			stage.on("pressmove", handleMove);
+
 			// createjs.Tween.get(skill.line[0], {
 			// 		loop: false
 			// 	})
