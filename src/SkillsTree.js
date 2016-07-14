@@ -82,18 +82,18 @@ define(function(require, exports, module) {
 			stage = new createjs.Stage(me.refs.skillTree);
 
 
-			var skill = me.createSkill({
-				x: 110,
-				y: 0
-			});
-			skill.filterDom = me.createShadow(skill);
-			stage.addChild(skill.filterDom);
-			stage.addChild(skill);
+			// var skill = me.createSkill({
+			// 	x: 110,
+			// 	y: 0
+			// });
+			// skill.filterDom = me.createShadow(skill);
+			// stage.addChild(skill.filterDom);
+			// stage.addChild(skill);
 
 
 			var skill2 = me.createSkill({
-				x: 210,
-				y: 70
+				x: 350,
+				y: 285
 			});
 			skill2.filterDom = {};
 			stage.addChild(skill2);
@@ -133,12 +133,24 @@ define(function(require, exports, module) {
 			skill2.on("pressmove", handleMove);
 			 
 			me.refs.skillTree.addEventListener("mousedown", function (evt) {
-				console.log("up!", evt);
+				 
 				console.log(stage.globalToLocal(evt.pageX - me.refs.skillTree.offsetLeft, evt.pageY - me.refs.skillTree.offsetTop));
 				var point =stage.globalToLocal(evt.pageX - me.refs.skillTree.offsetLeft, evt.pageY - me.refs.skillTree.offsetTop);
-				skill2.y = point.y;
+				
+				var diff = point.y - skill2Old.y;
+				console.log(diff/240);//240+-  285
+				if (Math.abs(diff) < 240) {
+					skill2.y = point.y;
+					var temp = Math.abs(diff)/240;//缩放量
+					skill2.scaleX = 1-temp; 
+					console.log(100*temp/2);//偏移量
+					skill2.x = skill2Old.x+100*temp/2;
+					skill2.filterDom.scaleX = 1-temp;
+					skill2.filterDom.y = point.y+ 2;
+				};
+				
 				// this.filterDom.x = evt.stageX + 2;
-				skill2.filterDom.y = point.y+ 2;
+				
 			});
 			// createjs.Tween.get(skill.line[0], {
 			// 		loop: false
@@ -207,7 +219,7 @@ define(function(require, exports, module) {
 		render: function() {
 			return (
 				<div className="skills">					
-					<canvas ref='skillTree' className="demoCanvas" width="800" height="600">
+					<canvas ref='skillTree'  className="demoCanvas" width="800" height="600">
 						
 					</canvas>
 				</div>
