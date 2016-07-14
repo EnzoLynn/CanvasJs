@@ -141,12 +141,14 @@ define(function(require, exports, module) {
 				console.log(diff/240);//240+-  285
 				if (Math.abs(diff) < 240) {
 					skill2.y = point.y;
-					var temp = Math.abs(diff)/240;//缩放量
-					skill2.scaleX = 1-temp; 
+					var temp = Math.abs(diff)/240/2;//缩放量
+					skill2.scaleX = 1- temp; 
 					console.log(100*temp/2);//偏移量
-					skill2.x = skill2Old.x+100*temp/2;
-					skill2.filterDom.scaleX = 1-temp;
+					var temp2 = skill2Old.x+100*temp/2/2;
+					skill2.x = temp2;
+					skill2.filterDom.scaleX = 1- temp;
 					skill2.filterDom.y = point.y+ 2;
+					skill2.filterDom.x = temp2+ 2;
 				};
 				
 				// this.filterDom.x = evt.stageX + 2;
